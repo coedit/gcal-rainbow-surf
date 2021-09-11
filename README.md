@@ -1,6 +1,6 @@
 
 # Rainbow.surf for Google Calendar
-<img src="images/Rainbow.surf-shotscape.png" width="640" height="400" alt="Rainbow.surf app screenshots" />  
+![Rainbow.surf promo](images/Rainbow.surf-web.jpg "installation below")  
 
 Free Chrome extension to clean Google Calendar with some much needed color
 
@@ -12,13 +12,15 @@ Free Chrome extension to clean Google Calendar with some much needed color
 - 🚫 doesn't show ads and doesn't send user's data anywhere
 - 🌼 open source: https://github.com/coedit/gcal-rainbow-surf
 
-## [Add to Chrome] = Presto Chango!
+## Installation
 
-<img src="images/Rainbow.surf-web.jpg" width="762" height="504" alt="Rainbow.surf app icon" />
+[Available in the Chrome Web Store](https://chrome.google.com/webstore/detail/rainbowsurf-for-google-ca/bdamkdibjdpgnpfpkbelkdngdcbbaeog/) (free)  
+Click [Add to Chrome]. _presto chango!_  
+![Rainbow.surf before & after screenshots](images/Rainbow.surf-shotscape.png "before & after screenshots")   
 
 
 Report bugs here: https://github.com/coedit/gcal-rainbow-surf/issues  
-Have ideas for new Google Calendar enhancements? please tell us
+Have ideas for new Google Calendar enhancements? [please tell](https://github.com/coedit/gcal-rainbow-surf/discussions/categories/ideas)
 
 Passion project – curated by @ezdub – dedicated to @illstylist  
 code by @imightbeAmy @karjna @rubenpoppe @msteffen @ezdub  
