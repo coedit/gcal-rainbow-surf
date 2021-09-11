@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Rainbow.surf for Google Calendar",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Merges duplicate Google Calendar events into one rainbow and colors the weekends.",
+    "description": "The description of the application, displayed in the web store."
+  }
+}
