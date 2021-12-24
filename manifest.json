@@ -3,7 +3,7 @@
   "short_name": "rainbow.surf",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar/*"],
@@ -14,7 +14,7 @@
   "background": {
     "scripts": ["browser-polyfill.js", "background.js"]
   },
-  "permissions": ["https://calendar.google.com/*", "storage"],
+  "permissions": ["https://calendar.google.com/*"],
   "icons": {
     "128": "images/Rainbow.surf-icon-128.png",
     "256": "images/Rainbow.surf-icon-256.png",
