@@ -14,7 +14,7 @@ Free Chrome extension to clean Google Calendar with some much needed color
 
 ## Installation
 
-[Available in the Chrome Web Store](https://chrome.google.com/webstore/detail/rainbowsurf-for-google-ca/bdamkdibjdpgnpfpkbelkdngdcbbaeog/) (free)  
+[Available in the Chrome Web Store](https://chromewebstore.google.com/detail/bdamkdibjdpgnpfpkbelkdngdcbbaeog) (free)  
 Click [Add to Chrome]. _presto chango!_  
 ![Rainbow.surf before & after screenshots](images/Rainbow.surf-shotscape.png "before & after screenshots")   
 
