@@ -3,7 +3,7 @@
   "short_name": "rainbow.surf",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "2.1.1",
+  "version": "2.2.1",
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar/*"],
@@ -22,6 +22,8 @@
     "48": "images/Rainbow.surf-icon-48.png",
     "64": "images/Rainbow.surf-icon-64.png"
   },
-  "content_security_policy": "default-src 'self'",
-  "manifest_version": 2
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'"
+  },
+  "manifest_version": 3
 }

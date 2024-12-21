@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Rainbow.surf for Google Calendar",
+    "message": "Rainbow.surf — merge duplicate Google Calendar events",
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Merges duplicate Google Calendar events into one rainbow and colors the weekends.",
+    "message": "Colorfully merge duplicate Google Calendar events into one rainbow and give the weekends a background color.",
     "description": "The description of the application, displayed in the web store."
   }
 }

@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Rainbow.surf pour Google Calendar",
+    "message": "Rainbow.surf — fusionnez les événements en double de Google Agenda",
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Une extension Chrome qui fusionne visuellement les évènements identiques de plusieurs calendriers Google en un seul.",
+    "message": "Fusionnez colorés les événements en double de Google Agenda en un arc-en-ciel et donnez un fond coloré aux week-ends.",
     "description": "The description of the application, displayed in the web store."
   }
 }
