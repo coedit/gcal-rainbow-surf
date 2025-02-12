@@ -194,29 +194,31 @@ observer.observe(document.querySelector('body'), { childList: true, subtree: tru
 // weekender - make weekends great again
 // big thanks to @msteffen for doing the hard parts :D  https://github.com/msteffen/gcal-gray-weekends
 // this includes small calendars ("main menu" & event edit) too
-const metaThemeElement = document.querySelector('meta[name="theme-color"]')
-
-const lightModeWkndBgColor = '#f1f6ff';
-const darkModeWkndBgColor = '#2f4163';
-
-// Default to light mode
-let weekendBgColor = lightModeWeekendBgColor;
-
-if(metaThemeElement) {
-  try {
-    const themeLum = relativeLuminance(metaThemeElement.getAttribute('content'));
-    const lightLum = relativeLuminance(lightModeWkndBgColor);
-    const darkLum = relativeLuminance(darkModeWkndBgColor);
-
-    const lightRatio = contrastRatio(themeLum, lightLum);
-    const darkRatio = contrastRatio(themeLum, darkLum);
-
-    // Lowest contrast ratio wins as that will be the less stark color. 
-    weekendBgColor = lightRatio <= darkRatio ? lightModeWkndBgColor : darkModeWkndBgColor;
-  } catch(e) {
-    console.error(e);
-  }
+function getWeekendBgColor() {
+  const metaThemeElement = document.querySelector('meta[name="theme-color"]')
   
+  const lightModeWkndBgColor = '#f1f6ff';
+  const darkModeWkndBgColor = '#2f4163';
+  
+  // Default to light mode
+  let weekendBgColor = lightModeWkndBgColor;
+  
+  if(metaThemeElement) {
+    try {
+      const themeLum = relativeLuminance(metaThemeElement.getAttribute('content'));
+      const lightLum = relativeLuminance(lightModeWkndBgColor);
+      const darkLum = relativeLuminance(darkModeWkndBgColor);
+  
+      const lightRatio = contrastRatio(themeLum, lightLum);
+      const darkRatio = contrastRatio(themeLum, darkLum);
+  
+      // Lowest contrast ratio wins as that will be the less stark color. 
+      weekendBgColor = lightRatio <= darkRatio ? lightModeWkndBgColor : darkModeWkndBgColor;
+    } catch(e) {
+      console.error(e);
+    }
+  }
+  return weekendBgColor;
 }
 
 //this should give us S for Saturday or localized day name - assumes browser locale and google calendar settings match
@@ -234,6 +236,7 @@ function colorBgWeekends(mutList) {
 }
 
 function colorBgDay(mainCal) {
+  const weekendBgColor = getWeekendBgColor();
   var nodes = mainCal.querySelectorAll("div[role='columnheader'],div[data-datekey]:not([jsaction])");
   for (const node of nodes) {
     if (node.getAttribute('role') == 'columnheader') {
@@ -265,6 +268,7 @@ function colorBgDay(mainCal) {
 
 const bigGrid = new MutationObserver(colorBgWeekends);
 bigGrid.observe(document.body, { subtree: true, childList: true, attributes: true });
+bigGrid.observe(document.querySelector('meta[name="theme-color"]'), {attributes: true});
 
 function minicolorBgWeekends(mutList) {
   if (mutList != undefined) {
@@ -278,6 +282,7 @@ function minicolorBgWeekends(mutList) {
 }
 
 function minicolorBgDay(miniCal) {
+  const weekendBgColor = getWeekendBgColor();
   var nodes = miniCal.querySelectorAll("span[role='columnheader'],span[data-date]");
   for (const node of nodes) {
     if (node.getAttribute('role') == 'columnheader') {
@@ -300,3 +305,4 @@ function minicolorBgDay(miniCal) {
 }
 const miniGrid = new MutationObserver(minicolorBgWeekends);
 miniGrid.observe(document.body, { subtree: true, childList: true, attributes: true });
+miniGrid.observe(document.querySelector('meta[name="theme-color"]'), {attributes: true});
