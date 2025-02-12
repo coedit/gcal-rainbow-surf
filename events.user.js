@@ -8,6 +8,28 @@
 
 'use strict';
 
+function hexToRgb(hex) {
+  const sanitizedHex = hex.replace(/^#/, '');
+  const bigint = parseInt(sanitizedHex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return [r, g, b];
+}
+
+function relativeLuminance(hex) {
+  const [r, g, b] = hexToRgb(hex).map(v => {
+    const sRgb = v / 255;
+    return sRgb <= 0.03928 ? sRgb / 12.92 : Math.pow((sRgb + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+// https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
+function contrastRatio(L1, L2) {
+  return (Math.max(L1,L2) + 0.05) / (Math.min(L1,L2) + 0.05);
+}
+
 const rainbow = (colors, width, angle) => {
   let gradient = `linear-gradient( to right,`;
   let pos = 0;
@@ -172,8 +194,31 @@ observer.observe(document.querySelector('body'), { childList: true, subtree: tru
 // weekender - make weekends great again
 // big thanks to @msteffen for doing the hard parts :D  https://github.com/msteffen/gcal-gray-weekends
 // this includes small calendars ("main menu" & event edit) too
+const metaThemeElement = document.querySelector('meta[name="theme-color"]')
 
-const weekendBgColor = '#f1f6ff';
+const lightModeWkndBgColor = '#f1f6ff';
+const darkModeWkndBgColor = '#2f4163';
+
+// Default to light mode
+let weekendBgColor = lightModeWeekendBgColor;
+
+if(metaThemeElement) {
+  try {
+    const themeLum = relativeLuminance(metaThemeElement.getAttribute('content'));
+    const lightLum = relativeLuminance(lightModeWkndBgColor);
+    const darkLum = relativeLuminance(darkModeWkndBgColor);
+
+    const lightRatio = contrastRatio(themeLum, lightLum);
+    const darkRatio = contrastRatio(themeLum, darkLum);
+
+    // Lowest contrast ratio wins as that will be the less stark color. 
+    weekendBgColor = lightRatio <= darkRatio ? lightModeWkndBgColor : darkModeWkndBgColor;
+  } catch(e) {
+    console.error(e);
+  }
+  
+}
+
 //this should give us S for Saturday or localized day name - assumes browser locale and google calendar settings match
 const weekendDay1 = new Date(2021, 6, 3).toLocaleString('default', { weekday: 'long' }).slice(0, 1);
 //this should give us S for Sunday or localized day name - assumes browser locale and google calendar settings match
