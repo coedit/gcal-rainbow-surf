@@ -18,7 +18,7 @@ function hexToRgb(hex) {
 }
 
 function relativeLuminance(hex) {
-  const [r, g, b] = hexToRgb(hex).map(v => {
+  const [r, g, b] = hexToRgb(hex).map((v) => {
     const sRgb = v / 255;
     return sRgb <= 0.03928 ? sRgb / 12.92 : Math.pow((sRgb + 0.055) / 1.055, 2.4);
   });
@@ -27,7 +27,7 @@ function relativeLuminance(hex) {
 
 // https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
 function contrastRatio(L1, L2) {
-  return (Math.max(L1,L2) + 0.05) / (Math.min(L1,L2) + 0.05);
+  return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
 }
 
 const rainbow = (colors, width, angle) => {
@@ -194,30 +194,32 @@ observer.observe(document.querySelector('body'), { childList: true, subtree: tru
 // weekender - make weekends great again
 // big thanks to @msteffen for doing the hard parts :D  https://github.com/msteffen/gcal-gray-weekends
 // this includes small calendars ("main menu" & event edit) too
-function getWeekendBgColor() {
-  const metaThemeElement = document.querySelector('meta[name="theme-color"]')
-  
+// dark mode color for weekend background based on contrast ratio coded by @TraumaER
+function getWeekendBgColor(miniCalendar = false) {
   const lightModeWkndBgColor = '#f1f6ff';
   const darkModeWkndBgColor = '#0f192c';
-  
-  // Default to light mode
-  let weekendBgColor = lightModeWkndBgColor;
-  
-  if(metaThemeElement) {
+  const miniLightModeWkndBgColor = '#e6efff';
+  const miniDarkModeWkndBgColor = '#0d2044';
+  const lightColor = miniCalendar ? miniLightModeWkndBgColor : lightModeWkndBgColor;
+  const darkColor = miniCalendar ? miniDarkModeWkndBgColor : darkModeWkndBgColor;
+  const lightLum = relativeLuminance(lightColor);
+  const darkLum = relativeLuminance(darkColor);
+  const metaThemeElement = document.querySelector('meta[name="theme-color"]');
+  let weekendBgColor;
+
+  if (metaThemeElement) {
     try {
       const themeLum = relativeLuminance(metaThemeElement.getAttribute('content'));
-      const lightLum = relativeLuminance(lightModeWkndBgColor);
-      const darkLum = relativeLuminance(darkModeWkndBgColor);
-  
       const lightRatio = contrastRatio(themeLum, lightLum);
       const darkRatio = contrastRatio(themeLum, darkLum);
-  
-      // Lowest contrast ratio wins as that will be the less stark color. 
-      weekendBgColor = lightRatio <= darkRatio ? lightModeWkndBgColor : darkModeWkndBgColor;
-    } catch(e) {
+
+      // Lowest contrast ratio wins as that will be the less stark color.
+      weekendBgColor = lightRatio <= darkRatio ? lightColor : darkColor;
+    } catch (e) {
       console.error(e);
     }
   }
+
   return weekendBgColor;
 }
 
@@ -268,7 +270,7 @@ function colorBgDay(mainCal) {
 
 const bigGrid = new MutationObserver(colorBgWeekends);
 bigGrid.observe(document.body, { subtree: true, childList: true, attributes: true });
-bigGrid.observe(document.querySelector('meta[name="theme-color"]'), {attributes: true});
+bigGrid.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
 
 function minicolorBgWeekends(mutList) {
   if (mutList != undefined) {
@@ -282,16 +284,10 @@ function minicolorBgWeekends(mutList) {
 }
 
 function minicolorBgDay(miniCal) {
-  const weekendBgColor = getWeekendBgColor();
-  var nodes = miniCal.querySelectorAll("span[role='columnheader'],span[data-date]");
+  const weekendBgColor = getWeekendBgColor(true);
+  var nodes = miniCal.querySelectorAll('td[data-date] button');
   for (const node of nodes) {
-    if (node.getAttribute('role') == 'columnheader') {
-      if (node.children[0].innerHTML[0] == weekendDay1 || node.children[0].innerHTML[0] == weekendDay2) {
-        node.style.backgroundColor = weekendBgColor;
-      }
-      continue;
-    }
-    var d = node.getAttribute('data-date');
+    var d = node.parentElement.getAttribute('data-date');
     if (!d) {
       console.log("could not read expected attribute 'data-date'");
       continue;
@@ -299,10 +295,11 @@ function minicolorBgDay(miniCal) {
     var dt = new Date(d.slice(0, 4), d.slice(4, 6) - 1, d.slice(6, 8));
     if (dt.getDay() == 6 || dt.getDay() == 0) {
       node.style.backgroundColor = weekendBgColor;
-      node.children[0].style.backgroundColor = weekendBgColor;
+      // node.querySelector('div').style.backgroundColor = weekendBgColor;
     }
   }
 }
+
 const miniGrid = new MutationObserver(minicolorBgWeekends);
 miniGrid.observe(document.body, { subtree: true, childList: true, attributes: true });
-miniGrid.observe(document.querySelector('meta[name="theme-color"]'), {attributes: true});
+miniGrid.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
