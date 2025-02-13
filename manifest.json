@@ -3,7 +3,7 @@
   "short_name": "rainbow.surf",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "2.2.2",
+  "version": "2.3.1",
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/calendar/*"],
@@ -12,7 +12,7 @@
     }
   ],
   "background": {
-    "scripts": ["browser-polyfill.js", "background.js"]
+    "service_worker": "background.js"
   },
   "permissions": ["https://calendar.google.com/*"],
   "icons": {
