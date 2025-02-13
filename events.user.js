@@ -198,7 +198,7 @@ function getWeekendBgColor() {
   const metaThemeElement = document.querySelector('meta[name="theme-color"]')
   
   const lightModeWkndBgColor = '#f1f6ff';
-  const darkModeWkndBgColor = '#2f4163';
+  const darkModeWkndBgColor = '#0f192c';
   
   // Default to light mode
   let weekendBgColor = lightModeWkndBgColor;
