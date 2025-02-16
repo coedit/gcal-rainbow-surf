@@ -21,7 +21,7 @@ Report bugs here: https://github.com/coedit/gcal-rainbow-surf/issues
 Have ideas for new Google Calendar enhancements? [please tell](https://github.com/coedit/gcal-rainbow-surf/discussions/categories/ideas)
 
 Passion project – curated by @ezdub – dedicated to @illstylist  
-code by @imightbeAmy @karjna @rubenpoppe @msteffen @ezdub  
+code by @imightbeAmy @karjna @rubenpoppe @msteffen @TraumaER @ezdub
 art copyright ©2021 @ezdub  
 
 
