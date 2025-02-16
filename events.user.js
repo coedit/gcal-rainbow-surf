@@ -285,12 +285,17 @@ function minicolorBgWeekends(mutList) {
 
 function minicolorBgDay(miniCal) {
   const weekendBgColor = getWeekendBgColor(true);
+  const today = new Date();
+  const todayString = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
   var nodes = miniCal.querySelectorAll('td[data-date] button');
   for (const node of nodes) {
     var d = node.parentElement.getAttribute('data-date');
     if (!d) {
       console.log("could not read expected attribute 'data-date'");
       continue;
+    }
+    if (d === todayString) {
+      continue; // Skip changing background color for the current date
     }
     var dt = new Date(d.slice(0, 4), d.slice(4, 6) - 1, d.slice(6, 8));
     if (dt.getDay() == 6 || dt.getDay() == 0) {
