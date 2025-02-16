@@ -294,13 +294,15 @@ function minicolorBgDay(miniCal) {
       console.log("could not read expected attribute 'data-date'");
       continue;
     }
-    if (d === todayString) {
-      continue; // Skip changing background color for the current date
-    }
     var dt = new Date(d.slice(0, 4), d.slice(4, 6) - 1, d.slice(6, 8));
+    var selected = node.getAttribute('aria-pressed');
     if (dt.getDay() == 6 || dt.getDay() == 0) {
+      if (selected == 'true' || d===todayString) {
+        node.style.removeProperty('background-color'); // uncolor selected date
+      } else {
       node.style.backgroundColor = weekendBgColor;
       // node.querySelector('div').style.backgroundColor = weekendBgColor;
+    }
     }
   }
 }
