@@ -189,17 +189,17 @@ const init = (mutationsList) => {
 };
 
 const observer = new MutationObserver(init);
-observer.observe(document.querySelector('body'), { childList: true, subtree: true, attributes: true });
+observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
 // weekender - make weekends great again
 // big thanks to @msteffen for doing the hard parts :D  https://github.com/msteffen/gcal-gray-weekends
 // this includes small calendars ("main menu" & event edit) too
 // dark mode color for weekend background based on contrast ratio coded by @TraumaER
 function getWeekendBgColor(miniCalendar = false) {
-  const lightModeWkndBgColor = '#f1f6ff';
+  const lightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#e8f1ff' : '#f1f6ff';
   const darkModeWkndBgColor = '#0f192c';
-  const miniLightModeWkndBgColor = '#e6efff';
-  const miniDarkModeWkndBgColor = '#0d2044';
+  const miniLightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#dddfff' : '#e6efff';
+  const miniDarkModeWkndBgColor = '#0f2755';
   const lightColor = miniCalendar ? miniLightModeWkndBgColor : lightModeWkndBgColor;
   const darkColor = miniCalendar ? miniDarkModeWkndBgColor : darkModeWkndBgColor;
   const lightLum = relativeLuminance(lightColor);
@@ -286,27 +286,49 @@ function minicolorBgWeekends(mutList) {
 function minicolorBgDay(miniCal) {
   const weekendBgColor = getWeekendBgColor(true);
   const today = new Date();
-  const todayString = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+  const todayString = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(
+    today.getDate()
+  ).padStart(2, '0')}`;
   var nodes = miniCal.querySelectorAll('td[data-date] button');
   for (const node of nodes) {
     var d = node.parentElement.getAttribute('data-date');
     if (!d) {
-      console.log("could not read expected attribute 'data-date'");
+      console.error("could not read expected attribute 'data-date'");
       continue;
     }
     var dt = new Date(d.slice(0, 4), d.slice(4, 6) - 1, d.slice(6, 8));
     var selected = node.getAttribute('aria-pressed');
     if (dt.getDay() == 6 || dt.getDay() == 0) {
-      if (selected == 'true' || d===todayString) {
+      if (selected == 'true' || d === todayString) {
         node.style.removeProperty('background-color'); // uncolor selected date
       } else {
-      node.style.backgroundColor = weekendBgColor;
-      // node.querySelector('div').style.backgroundColor = weekendBgColor;
-    }
+        node.style.backgroundColor = weekendBgColor;
+        // node.querySelector('div').style.backgroundColor = weekendBgColor;
+      }
     }
   }
 }
 
-const miniGrid = new MutationObserver(minicolorBgWeekends);
-miniGrid.observe(document.body, { subtree: true, childList: true, attributes: true });
-miniGrid.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
+const menuMiniMonth = new MutationObserver(minicolorBgWeekends);
+menuMiniMonth.observe(document.body, { subtree: true, childList: true, attributes: true });
+menuMiniMonth.observe(document.querySelector('html'), { attributes: true, attributeFilter: ['data-darkreader-mode'] });
+menuMiniMonth.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
+
+//  minicolorBgDay for year view months
+const yearViewMiniMonth = new MutationObserver(() => {
+  if (!document.body.hasAttribute('data-viewkey')) return;
+  document.querySelectorAll('div[data-month], div[data-ical], div[role]').forEach(minicolorBgDay);
+});
+
+yearViewMiniMonth.observe(document.body, {
+  attributes: true,
+  subtree: true,
+  childList: true,
+  attributeFilter: ['data-viewkey'],
+});
+yearViewMiniMonth.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
+yearViewMiniMonth.observe(document.querySelector('html'), {
+  attributes: true,
+  attributeFilter: ['data-darkreader-mode'],
+});
+yearViewMiniMonth.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
