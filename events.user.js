@@ -2,7 +2,7 @@
 // @name        Rainbow.surf - Event merge to rainbow + weekend colors for Google Calendar (curated by @ezdub - code by @imightbeAmy and @karjna and @msteffen)
 // @namespace   gcal-rainbow-surf
 // @include     https://calendar.google.com/*
-// @version     2.1.0
+// @version     2.4.0
 // @grant       none
 // ==/UserScript==
 
@@ -196,10 +196,10 @@ observer.observe(document.body, { childList: true, subtree: true, attributes: tr
 // this includes small calendars ("main menu" & event edit) too
 // dark mode color for weekend background based on contrast ratio coded by @TraumaER
 function getWeekendBgColor(miniCalendar = false) {
-  const lightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#e8f1ff' : '#f1f6ff';
+  const lightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#dce9ff' : '#f1f6ff';
   const darkModeWkndBgColor = '#0f192c';
-  const miniLightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#dddfff' : '#e6efff';
-  const miniDarkModeWkndBgColor = '#0f2755';
+  const miniLightModeWkndBgColor = document.querySelector('html[data-darkreader-mode]') ? '#cacdff' : '#e6efff';
+  const miniDarkModeWkndBgColor = '#102c61';
   const lightColor = miniCalendar ? miniLightModeWkndBgColor : lightModeWkndBgColor;
   const darkColor = miniCalendar ? miniDarkModeWkndBgColor : darkModeWkndBgColor;
   const lightLum = relativeLuminance(lightColor);
@@ -326,7 +326,6 @@ yearViewMiniMonth.observe(document.body, {
   childList: true,
   attributeFilter: ['data-viewkey'],
 });
-yearViewMiniMonth.observe(document.querySelector('meta[name="theme-color"]'), { attributes: true });
 yearViewMiniMonth.observe(document.querySelector('html'), {
   attributes: true,
   attributeFilter: ['data-darkreader-mode'],

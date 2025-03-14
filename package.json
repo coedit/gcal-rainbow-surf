@@ -1,0 +1,22 @@
+{
+  "name": "rainbow.surf",
+  "version": "2.4.0",
+  "description": "Rainbow.surf",
+  "author": "coedit Public Benefit Co",
+  "license": "GNU GPLv3",
+  "scripts": {
+    "build": "./build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coedit/gcal-rainbow-surf"
+  },
+  "bugs": {
+    "url": "https://github.com/coedit/gcal-rainbow-surf/issues"
+  },
+  "homepage": "https://github.com/coedit/gcal-rainbow-surf",
+  "dependencies": {
+    "webextension-polyfill": "^0.3.1"
+  },
+  "devDependencies": {}
+}

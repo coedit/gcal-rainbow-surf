@@ -1,18 +1,19 @@
 
-# Rainbow.surf for Google Calendar
+# Merge Duplicate Google Calendar Events into one Rainbow
 ![Rainbow.surf promo](images/Rainbow.surf-web.jpg "installation below")  
 
 Free Chrome extension to cut the clutter when families or teams use calendar sharing and the same event appears multiple times.
 - 📅📅 → 📅  merges duplicate Google Calendar events into one rainbow of the individual calendar colors 
 - 🟦  makes weekends great again - with cool blue background colors
 - 🗓  new event box & mini calendar views also get cool blue weekends
+- 🌗  tuned for device Dark mode, Dark Reader compatible
 - 💻  works only in your browser and does not modify events
 - 🚫  doesn't show ads and doesn't send user data anywhere
 - 🌼  open source: https://github.com/coedit/gcal-rainbow-surf
 
 ## Installation
 
-[Available in the Chrome Web Store](https://chromewebstore.google.com/detail/rainbowsurf-for-google-ca/bdamkdibjdpgnpfpkbelkdngdcbbaeog) (free)  
+[Available in the Chrome Web Store](https://chromewebstore.google.com/detail/bdamkdibjdpgnpfpkbelkdngdcbbaeog) (free)  
 Click [Add to Chrome]. _presto chango!_  
 ![Rainbow.surf before & after screenshots](images/Rainbow.surf-shotscape.png "before & after screenshots")   
 
