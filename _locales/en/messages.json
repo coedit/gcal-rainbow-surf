@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Colorfully merge duplicate Google Calendar events into one rainbow and give the weekends a background color.",
+    "message": "Event merge for duplicate cal events on Google Calendar to appear as one rainbow gradient and adds weekend background color.",
     "description": "The description of the application, displayed in the web store."
   }
 }

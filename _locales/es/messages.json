@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Fusiona coloridamente eventos duplicados de Google Calendar en un arcoíris y da a los fines de semana un color de fondo.",
+    "message": "Fusión de eventos para eventos duplicados en Google Calendar para aparecer como un degradado de arcoíris y agrega color de fondo para los fines de semana.",
     "description": "The description of the application, displayed in the web store."
   }
 }
