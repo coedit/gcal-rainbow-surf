@@ -17,8 +17,6 @@ style.textContent = `
 .KF4T6b:not(.smECzc).Epw9Dc.dedupe {
   background-size: 66px; // set the "Maybe" background effect repeat on our merged events
 }
-
-
 `;
 document.head.appendChild(style);
 
@@ -116,7 +114,7 @@ const mergeEventElements = (events) => {
       ) + 'px';
     eventToKeep.style.visibility = 'visible';
     eventToKeep.style.width = null;
-    eventToKeep.style.border = 'none';//solid 1px #FFF';
+    eventToKeep.style.border = 'none'; //solid 1px #FFF';
 
     // Clear setting color for declined events
     eventToKeep.querySelector('[aria-hidden="true"]').style.color = null;
