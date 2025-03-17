@@ -2,7 +2,7 @@
 // @name        Rainbow.surf - Event merge to rainbow + weekend colors for Google Calendar (curated by @ezdub - code by @imightbeAmy and @karjna and @msteffen)
 // @namespace   gcal-rainbow-surf
 // @include     https://calendar.google.com/*
-// @version     2.4.0
+// @version     2.4.1
 // @grant       none
 // ==/UserScript==
 
