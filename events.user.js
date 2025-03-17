@@ -8,6 +8,20 @@
 
 'use strict';
 
+const style = document.createElement('style');
+// the background color effect on "Maybe" events is added by gmail class and we override it for better visible style
+style.textContent = `
+.KF4T6b:not(.smECzc).Epw9Dc {
+  background-size: 12px 12px; // original size of the background effect on "Maybe" events 
+}
+.KF4T6b:not(.smECzc).Epw9Dc.dedupe {
+  background-size: 66px; // set the "Maybe" background effect repeat on our merged events
+}
+
+
+`;
+document.head.appendChild(style);
+
 function hexToRgb(hex) {
   const sanitizedHex = hex.replace(/^#/, '');
   const bigint = parseInt(sanitizedHex, 16);
@@ -70,6 +84,7 @@ const mergeEventElements = (events) => {
   });
 
   const eventToKeep = events.shift();
+  // Set visibility once for all other events
   events.forEach((event) => {
     event.style.visibility = 'hidden';
   });
@@ -77,7 +92,7 @@ const mergeEventElements = (events) => {
   if (eventToKeep.style.backgroundColor || eventToKeep.style.borderColor) {
     eventToKeep.originalStyle = eventToKeep.originalStyle || {
       backgroundImage: eventToKeep.style.backgroundImage,
-      backgroundSize: eventToKeep.style.backgroundSize,
+      // backgroundSize: eventToKeep.style.backgroundSize,
       left: eventToKeep.style.left,
       right: eventToKeep.style.right,
       visibility: eventToKeep.style.visibility,
@@ -88,6 +103,7 @@ const mergeEventElements = (events) => {
     colors.forEach((color) => newColors.push(color.toString().replace(')', ', 0.75)').replace('rgb', 'rgba')));
     eventToKeep.style.backgroundImage = rainbow(newColors, 10, 45);
     eventToKeep.style.backgroundColor = 'unset';
+    eventToKeep.classList.add('dedupe');
     eventToKeep.style.left =
       Math.min.apply(
         Math,
@@ -100,14 +116,10 @@ const mergeEventElements = (events) => {
       ) + 'px';
     eventToKeep.style.visibility = 'visible';
     eventToKeep.style.width = null;
-    eventToKeep.style.border = 'solid 1px #FFF';
+    eventToKeep.style.border = 'none';//solid 1px #FFF';
 
     // Clear setting color for declined events
     eventToKeep.querySelector('[aria-hidden="true"]').style.color = null;
-
-    events.forEach((event) => {
-      event.style.visibility = 'hidden';
-    });
   } else {
     const dots = eventToKeep.querySelector('[role="button"] div:first-child');
     const dot = dots.querySelector('div');
@@ -115,10 +127,6 @@ const mergeEventElements = (events) => {
     dot.style.width = colors.length * 4 + 'px';
     dot.style.borderWidth = 0;
     dot.style.height = '8px';
-
-    events.forEach((event) => {
-      event.style.visibility = 'hidden';
-    });
   }
 };
 
