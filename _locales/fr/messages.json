@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Fusionner les événements en double de Google Agenda en un arc-en-ciel",
+    "message": "Fusionner les événements Google Agenda en dégradé arc-en-ciel",
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Fusionnez colorés les événements en double de Google Agenda en un arc-en-ciel et donnez un fond coloré aux week-ends.",
+    "message": "Fusion des événements dupliqués de Google Agenda pour apparaître comme un dégradé arc-en-ciel et ajoute une couleur de fond pour les week-ends.",
     "description": "The description of the application, displayed in the web store."
   }
 }
